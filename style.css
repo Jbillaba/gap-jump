@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+
+@import 'animate.css'; 
+
+.title{
+    text-align: center;
+    font-family: Silkscreen;
+}
+
+.scoreDisplay{
+    font-family: Silkscreen;
+    font-size: 30px;
+    display: grid;
+    justify-content: center;
+}
+/* looked up tutorial on how to make a game and stole this chunk of code for the box, which is what you see here. link : https://blog.logrocket.com/build-a-game-with-html-css-javascript/ */
+.game-container{
+    width: 500px;
+    height: 600px;
+    border: 5px solid black;
+    margin: auto;
+}
+
