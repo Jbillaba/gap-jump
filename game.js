@@ -1,20 +1,23 @@
+
+let block;
+//in case it wasnt obvious it makes game start....I think
 function startGame() {
     myGameArea.start();
     block = new component(100, 30, "red", 10, 120)
 }
 
-
+// makes block move + clears the canvas
 let myGameArea = {
-    canvas:   document.querySelector(".game-display"),
+    canvas: document.querySelector(".game-display"),
     start : function() {
         this.canvas.width = 500;
-        this.canvas.height = 700;
+        this.canvas.height = 600;
         this.context = this.canvas.getContext("2d");
         this.interval = setInterval(updateGameArea, 20);
-        window.addEventListener('keyDown', function (d) {
-            myGameArea.key = d.keycode;
+        window.addEventListener('keydown', function (e) {
+            myGameArea.key = e.keyCode;
         })
-        window.addEventListener('keyup', function (d) {
+        window.addEventListener('keyup', function (e) {
             myGameArea.key = false;
         })
 
@@ -25,8 +28,9 @@ let myGameArea = {
 
 }
 
-
+// gameObj class contructor
 function component(width, height, color, x, y) {
+    this.gameArea = myGameArea;
     this.width = width;
     this.height = height;
     this.speedX = 0;
@@ -44,38 +48,16 @@ function component(width, height, color, x, y) {
     }
 }
 
+//refreshes, and checks for keypresses.
 function updateGameArea() {
     myGameArea.clear();  
     block.speedX = 0;
     block.speedY = 0;
-    if (myGameArea.key && myGameArea.key == 37) {myGamePiece.speedX = -1; }
-    if (myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 1; }
-    if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -1; }
-    if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 1; }
+    if (myGameArea.key && myGameArea.key == 37) {block.speedX = -1; }
+    if (myGameArea.key && myGameArea.key == 39) {block.speedX = 1; }
+    if (myGameArea.key && myGameArea.key == 38) {block.speedY = -1; }
+    if (myGameArea.key && myGameArea.key == 40) {block.speedY = 1; }
+    block.newPos();
     block.update();
 }
 
-
-function moveup() {
-    block.speedY -= 1;
-}
-
-
-function movedown() {
-    block.speedY += 1;
-}
-
-
-function moveleft() {
-    block.speedX -= 1;
-}
-
-
-function moveright() {
-    block.speedX += 1;
-}
-
-function stopMove() {
-    block.speedX = 0;
-    block.speedY = 0;
-}
