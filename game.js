@@ -15,10 +15,11 @@ let myGameArea = {
         this.context = this.canvas.getContext("2d");
         this.interval = setInterval(updateGameArea, 20);
         window.addEventListener('keydown', function (e) {
-            myGameArea.key = e.keyCode;
+            myGameArea.keys = (myGameArea.keys || []);
+            myGameArea.keys[e.keycode] = true;
         })
         window.addEventListener('keyup', function (e) {
-            myGameArea.key = false;
+            myGameArea.key[e.keycode] = false;
         })
 
     }, 
@@ -53,10 +54,10 @@ function updateGameArea() {
     myGameArea.clear();  
     block.speedX = 0;
     block.speedY = 0;
-    if (myGameArea.key && myGameArea.key == 37) {block.speedX = -2; }
-    if (myGameArea.key && myGameArea.key == 39) {block.speedX = 2; }
-    if (myGameArea.key && myGameArea.key == 38) {block.speedY = -2; }
-    if (myGameArea.key && myGameArea.key == 40) {block.speedY = 2; }
+    if (myGameArea.keys && myGameArea.keys == [37]) {block.speedX = -4; }
+    if (myGameArea.keys && myGameArea.keys == [39]) {block.speedX = 4; }
+    if (myGameArea.keys && myGameArea.keys == [38]) {block.speedY = -4; }
+    if (myGameArea.keys && myGameArea.keys == [40]) {block.speedY = 4; }
     block.newPos();
     block.update();
 }
