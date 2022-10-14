@@ -9,4 +9,4 @@ first project for General Assembly.
 - note that there will be no second screen or player 
 -may or may not add diff levels of difficulty. 
 
--
+-note: i used documentaion from w3 schools for setting up the canvas. link: https://www.w3schools.com/graphics/game_intro.asp
