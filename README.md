@@ -1,4 +1,4 @@
-# puyo-puyo
+# slime tetris puyo-puyo
 first project for General Assembly. 
 
 - similar to tetris, puyo puyo is a tetris like game created in japan, 1991 
