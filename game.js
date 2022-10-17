@@ -33,20 +33,36 @@ function GameObject(width, height, color, x, y) {
     this.speedY = 0;
     this.x = x;
     this.y = y;
+    this.gravity = 0.03;
+    this.gravitySpeed = 0;
     this.update = function(){
     ctx = myGameArea.context;
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angel);
     ctx.fillStyle = color;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillRect(this.width / -2, this.height / -2, this.width, this.height);
+    ctx.restore();
     }
-    this.newPos = function() {
+
+    this.newPos = function(){
+        this.gravitySpeed += this.gravity
         this.x += this.speedX;
-        this.y += this.speedY;
+        this.y += this.speedY + this.gravitySpeed;
+        this.hitBottom();
+    }
+    this.hitBottom = function() {
+        let rockbottom = myGameArea.canvas.height - this.height;
+        if (this.y > rockbottom){
+            this.y = rockbottom;
+        }
     }
 }
 
 //refreshes, and checks for keypresses.
 function updateGameArea() {
     myGameArea.clear();  
+    block.angle += 1 * Math.pi / 180;
     block.speedX = 0;
     block.speedY = 0;
     if (myGameArea.key && myGameArea.key == 37){block.speedX = -1;}
