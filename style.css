@@ -20,7 +20,9 @@ text-align: center;
 }
 
 .game-display{
-    background-color: lightgrey;
+    background-color: white;
     border: 3px solid black;
+    width: 500px;
+    height: 500px;
 }
 
