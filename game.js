@@ -2,12 +2,14 @@
 let block;
 let pipes = [];
 let score;
-
+let mysound;
 
 function startGame() {
-    block = new GameObject(30, 30, "flappy-bird.png", 10, 120, "image");
-    score = new GameObject("30px", "silkScreen", "black", 280, 40, "text") 
-    background = new GameObject(656, 270, "sky-background.webp", 0, 0, "image");
+    block = new GameObject(30, 30, "red", 10, 120,);
+    score = new GameObject("30px", "silkScreen", "black", 280, 40, "text");
+    mysound = new sound("thud.mp3");
+    bgm = new sound("bgm.mp3");
+    bgm.play();
     myGameArea.start();
 }
 // makes block move + clears the canvas
@@ -38,11 +40,6 @@ let myGameArea = {
 // gameObj class contructor
 function GameObject(width, height, color, x, y, type) {
     this.type = type;
-    if(type == "image"){
-        this.image = new Image();
-        this.image.src = color;
-    }
-    
     this.width = width;
     this.height = height;
     this.speedX = 0;
@@ -51,13 +48,6 @@ function GameObject(width, height, color, x, y, type) {
     this.y = y;
     this.update = function(){
     ctx = myGameArea.context;
-    if(type == "image"){
-        ctx.drawImage(this.image, 
-            this.x, 
-            this.y, 
-            this.width, this.height);
-     
-    }
     if (this.type == "text"){
         ctx.font = this.width + " " + this.height;
         ctx.fillStyle = color;
@@ -97,13 +87,12 @@ function updateGameArea() {
     let x, height, gap, minHeight, maxHeight, minGap, maxGap;
     for (i = 0; i < pipes.length; i++){
         if (block.crashWith(pipes[i])){
+            mysound.play();
             myGameArea.stop();
             return;
         }
     }
     myGameArea.clear();  
-    background.newPos();
-    background.update();
     myGameArea.frameNo += 1; 
 if (myGameArea.frameNo == 1 || everyinterval(150)){
     x = myGameArea.canvas.width;
@@ -138,3 +127,17 @@ function everyinterval(n) {
     return false;
 }
 
+function sound(src){
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", 'auto');
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+}
