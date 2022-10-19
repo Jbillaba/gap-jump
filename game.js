@@ -130,6 +130,9 @@ if (myGameArea.frameNo == 1 || everyinterval(150)){
     if (myGameArea.key && myGameArea.key == 39){block.speedX = 1;}
     if (myGameArea.key && myGameArea.key == 38){block.speedY = -1;}
     if (myGameArea.key && myGameArea.key == 40){block.speedY = 1;}
+    if (myGameArea.key && myGameArea.key == 32){accelerate(-0.2)} else {
+        accelerate(0.4)
+    }
     score.text = "score: " + myGameArea.frameNo;
     score.update();
     block.newPos();
