@@ -4,7 +4,7 @@ let pipes = [];
 
 
 function startGame() {
-    block = new GameObject(100, 30, "red", 10, 120);
+    block = new GameObject(30, 30, "red", 10, 120);
     myGameArea.start();
 }
 // makes block move + clears the canvas
@@ -34,7 +34,6 @@ let myGameArea = {
 
 // gameObj class contructor
 function GameObject(width, height, color, x, y) {
-
     this.width = width;
     this.height = height;
     this.speedX = 0;
@@ -43,26 +42,20 @@ function GameObject(width, height, color, x, y) {
     this.y = y;
     this.update = function(){
     ctx = myGameArea.context;
-    ctx.save();
-    ctx.translate(this.x, this.y);
-    ctx.rotate(this.angel);
     ctx.fillStyle = color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
-    ctx.restore();
     }
-
     this.newPos = function(){
-        
         this.x += this.speedX;
         this.y += this.speedY 
-        
-        
     }
     this.crashWith = function(otherobj) {
         let myleft = this.x;
         let myright = this.x + (this.width);
         let mytop = this.y;
         let mybottom = this.y + (this.height);
+        let otherleft = otherobj.x;
+        let otherright = otherobj.x + (otherobj.width);
         let othertop = otherobj.y;
         let otherbottom = otherobj.y + (otherobj.height);
         let crash = true;
@@ -79,7 +72,7 @@ function GameObject(width, height, color, x, y) {
 
 //refreshes, and checks for keypresses.
 function updateGameArea() {
-    let x, y;
+    let x, height, gap, minHeight, maxHeight, minGap, maxGap;
     for (i = 0; i < pipes.length; i++){
         if (block.crashWith(pipes[i])){
             myGameArea.stop();
@@ -91,8 +84,14 @@ function updateGameArea() {
     myGameArea.frameNo += 1; 
 if (myGameArea.frameNo == 1 || everyinterval(150)){
     x = myGameArea.canvas.width;
-   y = myGameArea.canvas.height - 200;
-   pipes.push( new GameObject(10, 200, "green", x, y));
+   minHeight = 40;
+   maxHeight = 400;
+   height = Math.floor(Math.random() * (maxHeight - minHeight + 1)+ minHeight);
+   minGap = 50;
+   maxGap = 400;
+   gap = Math.floor(Math.random() *(maxHeight-minHeight+1)+minHeight);
+   pipes.push(new GameObject(30, height, "green", x, 0));
+   pipes.push(new GameObject(30, x - height - gap, "green", x, height + gap));
 }
     for(i = 0; i < pipes.length; i ++)
 {
@@ -110,7 +109,7 @@ if (myGameArea.frameNo == 1 || everyinterval(150)){
 }
 
 function everyinterval(n) {
-    if ((myGameArea.frameNo / n) % 1 ==0 ){return true;}
+    if ((myGameArea.frameNo / n) % 1 == 0 ){return true;}
     return false;
 }
 
