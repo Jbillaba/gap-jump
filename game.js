@@ -44,6 +44,8 @@ function GameObject(width, height, color, x, y, type) {
     this.height = height;
     this.speedX = 0;
     this.speedY = 0;
+    this.gravity = 0.05;
+    this.gravitySpeed = 0;
     this.x = x;
     this.y = y;
     this.update = function(){
@@ -58,9 +60,22 @@ function GameObject(width, height, color, x, y, type) {
     }
     }
     this.newPos = function(){
+        this.gravitySpeed += this.gravity;
         this.x += this.speedX;
-        this.y += this.speedY 
+        this.y += this.speedY + this.gravitySpeed;
+        this.rockBottom();
     }
+    this.rockBottom = function() {
+        let rockBottom = myGameArea.canvas.height - this.height;
+
+        if(this.y > rockBottom){
+            this.y = rockBottom;
+            this.gravitySpeed = 0;
+        }
+    }
+
+
+
     this.crashWith = function(otherobj) {
         let myleft = this.x;
         let myright = this.x + (this.width);
@@ -81,7 +96,6 @@ function GameObject(width, height, color, x, y, type) {
     }
 
     }
-
 //refreshes, and checks for keypresses.
 function updateGameArea() {
     let x, height, gap, minHeight, maxHeight, minGap, maxGap;
@@ -126,6 +140,14 @@ function everyinterval(n) {
     if ((myGameArea.frameNo / n) % 1 == 0 ){return true;}
     return false;
 }
+
+
+function accelerate(n) {
+    if (!myGameArea.interval) {myGameArea.interval = setInterval(updateGameArea, 20);}
+    block.gravity = n;  
+}
+
+
 
 function sound(src){
     this.sound = document.createElement("audio");

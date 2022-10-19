@@ -26,3 +26,7 @@ text-align: center;
     height: 500px;
 }
 
+button{
+    display: grid;
+    justify-content: center;
+}
