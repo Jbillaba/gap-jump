@@ -99,7 +99,7 @@ function updateGameArea() {
             mysound.play();
             myGameArea.stop();
             document.querySelector("#restart-btn").addEventListener("click", function () {
-                     
+            location.reload();
             })
             return;
         }
