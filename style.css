@@ -8,14 +8,13 @@
 
 div{
 text-align: center;
+font-family: Silkscreen;
 }
 
-
-.scoreDisplay{
+#restart-btn{
     font-family: Silkscreen;
-    font-size: 30px;
-    display: grid;
-    justify-content: center;
+    display: none; 
+
 }
 
 .game-display{
@@ -26,12 +25,4 @@ text-align: center;
     height: 500px;
 }
 
-#restart-btn{
-    font-family: Silkscreen;
-    align-content: baseline;
-}
-h2{
-    font-family: Silkscreen;
-display: grid;
-justify-content: center;
-}
+

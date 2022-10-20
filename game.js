@@ -98,6 +98,7 @@ function updateGameArea() {
         if (block.crashWith(pipes[i])){
             mysound.play();
             myGameArea.stop();
+            document.querySelector("#restart-btn").style.display = "block";
             document.querySelector("#restart-btn").addEventListener("click", function () {
             location.reload();
             })
