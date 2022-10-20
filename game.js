@@ -8,8 +8,6 @@ function startGame() {
     block = new GameObject(30, 30, "red", 10, 120,);
     score = new GameObject("30px", "silkScreen", "black", 280, 40, "text");
     mysound = new sound("thud.mp3");
-    bgm = new sound("bgm.mp3");
-    bgm.play();
     myGameArea.start();
 }
 // makes block move + clears the canvas
@@ -73,9 +71,6 @@ function GameObject(width, height, color, x, y, type) {
             this.gravitySpeed = 0;
         }
     }
-
-
-
     this.crashWith = function(otherobj) {
         let myleft = this.x;
         let myright = this.x + (this.width);
@@ -103,6 +98,9 @@ function updateGameArea() {
         if (block.crashWith(pipes[i])){
             mysound.play();
             myGameArea.stop();
+            document.querySelector("#restart-btn").addEventListener("click", function () {
+                     
+            })
             return;
         }
     }
@@ -130,7 +128,7 @@ if (myGameArea.frameNo == 1 || everyinterval(150)){
     if (myGameArea.key && myGameArea.key == 39){block.speedX = 1;}
     if (myGameArea.key && myGameArea.key == 38){block.speedY = -1;}
     if (myGameArea.key && myGameArea.key == 40){block.speedY = 1;}
-    if (myGameArea.key && myGameArea.key == 32){accelerate(-0.2)} else {
+    if (myGameArea.key && myGameArea.key == 32){accelerate(-0.3)} else {
         accelerate(0.4)
     }
     score.text = "score: " + myGameArea.frameNo;
@@ -138,20 +136,14 @@ if (myGameArea.frameNo == 1 || everyinterval(150)){
     block.newPos();
     block.update();
 }
-
 function everyinterval(n) {
     if ((myGameArea.frameNo / n) % 1 == 0 ){return true;}
     return false;
 }
-
-
 function accelerate(n) {
     if (!myGameArea.interval) {myGameArea.interval = setInterval(updateGameArea, 20);}
     block.gravity = n;  
 }
-
-
-
 function sound(src){
     this.sound = document.createElement("audio");
     this.sound.src = src;
